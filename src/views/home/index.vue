@@ -1,5 +1,5 @@
 <template>
-  <div class="home-warpper">
+  <div class="home_warpper">
       <el-button type="primary" @click="test">测试vuex的模块化</el-button>
       <span>{{testInfo||'--'}}</span>
   </div>

@@ -1,6 +1,5 @@
 <template>
-    <div class="main-warpper">
-        首页
+    <div class="main_warpper">
         <router-view></router-view>
     </div>
 </template>
@@ -21,5 +20,6 @@
         methods: {}
     }
 </script>
-<style lang='less' scoped>
+<style lang='less'>
+@import '~@/style/index.less';
 </style>
