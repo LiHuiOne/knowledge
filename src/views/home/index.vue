@@ -1,21 +1,34 @@
 <template>
   <div class="home-warpper">
-      <el-button type="primary">测试</el-button>
+      <el-button type="primary" @click="test">测试vuex的模块化</el-button>
+      <span>{{testInfo||'--'}}</span>
   </div>
 </template>
 
 <script>
+import {mapState,mapMutations} from 'vuex'
 export default {
   data () {
     return {
     };
   },
-
+  computed:{
+    ...mapState({
+      testInfo:state=>state.test.testInfo
+    })
+  },
   components: {},
 
-  mounted(){},
+  mounted(){
+    console.log(this.testInfo)
+  },
 
-  methods: {}
+  methods: {
+    ...mapMutations(['testSetInfo']),
+    test(){
+      this.testSetInfo('test')
+    }
+  }
 }
 
 </script>
