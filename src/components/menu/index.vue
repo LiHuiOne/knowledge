@@ -43,14 +43,11 @@
 </script>
 
 <style lang="less">
-    .menu-warpper {
-        .iconfont {
-            margin-right: 6px;
-            font-size: 16px;
-            color: #ffffff;
-        }
+    .icon_i{
+        margin-right: 6px;
+        font-size: 16px;
+        color: #ffffff !important;
     }
-
     .el-menu {
         // 解决1px elementui出现展开后子菜单宽度多出1px问题
         border: none;

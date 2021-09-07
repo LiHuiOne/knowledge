@@ -1,7 +1,7 @@
 <template>
     <el-sub-menu v-if="menu.children&&menu.children.length" :index="menu.name">
         <template #title>
-            <i :class="menu.icon"></i>
+            <i :class="menu.icon" class="icon_i"></i>
             <span>{{menu.title}}</span>
         </template>
         <template v-for="menuChild in menu.children" :key="menuChild.name">
@@ -11,7 +11,7 @@
         </template>
     </el-sub-menu>
     <el-menu-item v-else :index="menu.title" @click="toPage(menu)">
-        <i :class="menu.icon"></i>
+        <i :class="menu.icon" class="icon_i"></i>
         <template #title>{{menu.title}}</template>
     </el-menu-item>
 </template>
