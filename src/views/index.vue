@@ -17,7 +17,6 @@
                 <router-view></router-view>
             </div>
         </div>
-        
     </div>
 </template>
 
@@ -79,8 +78,11 @@ import {mapState,mapMutations} from 'vuex'
     }
     .main_content{
         height: calc(100% - 40px);
-        display: flex;
         .asideContainer{
+            margin-right: 10px;
+            //使用float代替flex布局，因为flex布局下，收缩时el-table不能触发resize事件，
+            //详细解释看：https://blog.csdn.net/YongChao_bms/article/details/103293607
+            float: left;
             height: 100%;
             background: #001C43;
             .asideHeader{

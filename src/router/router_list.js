@@ -6,7 +6,12 @@ export const routerConstantList=[
             {
                 path:'/home',
                 name:'首页',
-                component:()=>import(/* webpackChunkName: "index" */ '@/views/home/index')
+                component:()=>import(/* webpackChunkName: "home" */ '@/views/home/index')
+            },
+            {
+                path:'/echarts/histogram',
+                name:'柱状图',
+                component:()=>import(/* webpackChunkName: "echarts" */ '@/views/echarts/histogram')
             }
         ]
     }
