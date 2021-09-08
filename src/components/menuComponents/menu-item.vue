@@ -30,7 +30,9 @@
         },
         methods: {
             toPage(menuInfo) {
-                console.log("ppp")
+                this.$router.push({
+                    path:menuInfo.path
+                })
             }
         }
     }
