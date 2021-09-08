@@ -5,3 +5,30 @@
     overflow: hidden;
     background-color: @main_bg;
 }
+//整体容器样式，在.vue文件中统统一使用该样式
+.box_container{
+    box-sizing: border-box;
+    padding: 0px 10px;
+    overflow: auto;
+    font-size: 16px;
+    color: #000;
+    background-color: #ffffff;
+    .box_header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        height: 50px;
+        box-sizing: border-box;
+        padding:0px 10px;
+        font-weight: bold;
+        border-bottom:1px solid #E6E6E6;
+    }
+}
+//设置el-table表头样式
+.el-table th.el-table__cell{
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+    background-color: #eff0f1;
+}
