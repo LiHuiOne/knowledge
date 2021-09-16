@@ -10,17 +10,17 @@ module.exports = {
     disableHostCheck: true, //webpack4.0 开启热更新
     //配置多个代理的话，直接在proxy写就可以
     //productionSourceMap: false,//打包时去掉map文件
-    // proxy: {
-    //   "/api/*": {
-    //     target: "http://192.168.2.221:8095",
-    //     ws: true,
-    //     changeOrigin: true,
-    //     timeout: 1920000,
-    //     pathRewrite: {
-    //       "^/api": ""
-    //     }
-    //   }
-    // },
+    proxy: {
+      "/api/*": {
+        target: "http://localhost:6060",
+        ws: true,
+        changeOrigin: true,
+        timeout: 1920000,
+        pathRewrite: {
+          "^/api": ""
+        }
+      }
+    },
   },
   css:{
 

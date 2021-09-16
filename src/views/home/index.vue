@@ -20,6 +20,10 @@ export default {
   components: {},
 
   mounted(){
+    console.log(this.$api)
+    this.$api.getIndex().then(res=>
+    console.log(res)
+    )
     console.log(this.testInfo)
   },
 
