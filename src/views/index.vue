@@ -53,7 +53,6 @@ import {mapState,mapMutations} from 'vuex'
     }
 </script>
 <style lang='less'>
-@import '~@/style/index.less';
 .main_warpper{
     .main_header{
         height: 40px;
