@@ -14,6 +14,10 @@ export const routerConstantList=[
                 component:()=>import(/* webpackChunkName: "echarts" */ '@/views/echarts/histogram')
             }
         ]
+    },
+    {
+        path:'/login',
+        component:import('@/views/login')
     }
 
 ]

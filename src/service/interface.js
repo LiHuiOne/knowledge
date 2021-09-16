@@ -1,5 +1,5 @@
-import test from './testServices.js'
+import user from './userService.js'
 export default {
-    ...test,
+    ...user,
 
 };

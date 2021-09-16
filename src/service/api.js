@@ -8,6 +8,7 @@ import {
 } from "util";
 //配置请求和响应拦截器(axios的二次封装)
 export default function $axios(options) {
+    console.log(options)
     return new Promise((resolve, reject) => {
         const instance = axios.create({
             baseURL: config.baseURL,
