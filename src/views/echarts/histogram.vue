@@ -4,9 +4,7 @@
             <span>柱状图</span>
             <el-button type="primary" size="small" @click="add">新增</el-button>
         </div>
-        <el-table :data="tableData">
-            <el-table-column prop="name" label="名称"> </el-table-column>
-            <el-table-column prop="description" label="描述"> </el-table-column>
+        <tableContainer :tableDataInfo="tableDataInfo" :columnList="tableColumn" @getTableData="getTableData">
             <el-table-column prop="code" label="在线效果" show-overflow-tooltip>
                 <template #default="{row}">
                      <span class="opation_txt" @click="getView(row)">预览</span>
@@ -18,7 +16,7 @@
                     <span class="opation_txt">修改</span>
                 </template>
             </el-table-column>
-        </el-table>
+        </tableContainer>
         <el-dialog title="提示" v-model="dialogVisible">
             <el-form :model="form" label-position="right" label-width="100px" size="small">
                 <el-form-item prop="name" label="名称">
@@ -59,22 +57,37 @@
             return {
                 echartTypeObj,
                 dialogVisible: false,
-                tableData: [],
-                form: {}
+                tableDataInfo: {},
+                form: {},
+                tableColumn:[
+                    {
+                        label:'名称',
+                        prop:'name'
+                    },
+                    {
+                        label:'描述',
+                        prop:'description'
+                    }
+
+                ]
             };
         },
-
-        components: {},
+        components: {
+            
+        },
 
         mounted() {
-            this.$api.getEcharts().then(res=>{
-                if(res.status=='ok'){
-                   this.tableData=res.data
-                }
-            })
+            
         },
 
         methods: {
+            getTableData(pageInfo){
+                this.$api.getEcharts(pageInfo).then(res=>{
+                    if(res.status=='ok'){
+                        this.tableDataInfo=res
+                    }
+                })
+            },
             add(){
                 this.dialogVisible=true
             },
@@ -83,6 +96,7 @@
                     if(res.status=='ok'){
                         this.$message.success('添加成功')
                         this.dialogVisible=false
+                        this.getTableData()
                     }
                 })
             },

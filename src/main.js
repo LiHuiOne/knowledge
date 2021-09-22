@@ -5,12 +5,17 @@ import store from './store'
 import api from '@/service/interface.js'
 import ElementPlus from 'element-plus'
 import { ElMessage } from 'element-plus'
+import 'dayjs/locale/zh-cn' //中文
+import locale from 'element-plus/lib/locale/lang/zh-cn' //中文
 import 'element-plus/dist/index.css'
+//引入table全局组件
+import tableContainer from '@/components/tableComponents/index'
 const app = createApp(App)
 //将api方法挂载到原型上
 app.config.globalProperties.$api=api
 app.config.globalProperties.$message=ElMessage
-app.use(ElementPlus)
+app.component('tableContainer',tableContainer)
+app.use(ElementPlus,{locale})
 .use(api)
 .use(store)
 .use(router).mount('#app')
