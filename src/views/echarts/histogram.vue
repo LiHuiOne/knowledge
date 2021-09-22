@@ -2,9 +2,9 @@
     <div class="box_container">
         <div class="box_header">
             <span>柱状图</span>
-            <el-button type="primary" size="small" @click="add">新增</el-button>
+            <el-button type="primary" size="small" @click="add('0','')">新增</el-button>
         </div>
-        <tableContainer :tableDataInfo="tableDataInfo" :columnList="tableColumn" @getTableData="getTableData">
+        <tableContainer ref="echartTable" :tableDataInfo="tableDataInfo" :columnList="tableColumn" @getTableData="getTableData">
             <el-table-column prop="code" label="在线效果" show-overflow-tooltip>
                 <template #default="{row}">
                      <span class="opation_txt" @click="getView(row)">预览</span>
@@ -12,12 +12,12 @@
             </el-table-column>
             <el-table-column label="操作">
                 <template #default="{row}">
-                    <span class="opation_txt mr5">查看</span>
-                    <span class="opation_txt">修改</span>
+                    <span class="opation_txt mr5" @click="add('2',row)">修改</span>
+                    <span class="opation_txt" @click="del(row)">删除</span>
                 </template>
             </el-table-column>
         </tableContainer>
-        <el-dialog title="提示" v-model="dialogVisible">
+        <el-dialog :title="diaTitle" v-model="dialogVisible">
             <el-form :model="form" label-position="right" label-width="100px" size="small">
                 <el-form-item prop="name" label="名称">
                     <el-input v-model="form.name" placeholder="请输入名称"></el-input>
@@ -52,10 +52,14 @@
     import {
         echartTypeObj
     } from '@/until/echart_type.js'
+    import {
+        dialogTitleObj
+    } from '@/until/dictionary.js'
     export default {
         data() {
             return {
                 echartTypeObj,
+                dialogTitleObj,
                 dialogVisible: false,
                 tableDataInfo: {},
                 form: {},
@@ -69,7 +73,8 @@
                         prop:'description'
                     }
 
-                ]
+                ],
+                diaTitle:''
             };
         },
         components: {
@@ -88,17 +93,35 @@
                     }
                 })
             },
-            add(){
+            add(type,data){
+                this.diaTitle = this.dialogTitleObj[type]
                 this.dialogVisible=true
+                this.form=data
             },
             sureSubmit(){
-                this.$api.postEcharts(this.form).then(res=>{
+                let apiUrl = this.diaTitle=='新增'?'postEcharts':'modifyEcharts'
+                this.$api[apiUrl](this.form).then(res=>{
                     if(res.status=='ok'){
-                        this.$message.success('添加成功')
+                        this.$message.success('成功')
                         this.dialogVisible=false
-                        this.getTableData()
+                        this.$refs['echartTable'].reload()
                     }
                 })
+            },
+            del(row){
+                this.$confirm('确认删除该文件, 是否继续?', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning',
+                    })
+                    .then(() => {
+                        this.$api.deleteEcharts({id:row._id}).then(res=>{
+                            this.$message.success('成功')
+                            this.$refs['echartTable'].reload()
+                        })
+                        
+                    })
+                
             },
             getView(row){
 

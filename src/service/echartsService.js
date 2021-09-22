@@ -14,7 +14,25 @@ const getEcharts = (params={})=>{
         params
     })
 }
+
+const modifyEcharts = data=>{
+    return axios({
+        url:'/api/echart/modify',
+        method:'post',
+        data
+    })
+}
+
+const deleteEcharts = data=>{
+    return axios({
+        url:'/api/echart/delete',
+        method:'post',
+        data
+    })
+}
 export default{
     postEcharts,
-    getEcharts
+    getEcharts,
+    modifyEcharts,
+    deleteEcharts
 }

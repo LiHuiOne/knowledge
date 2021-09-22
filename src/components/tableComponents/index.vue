@@ -4,7 +4,7 @@
         <slot></slot>
     </el-table>
     <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="pageInfo.currentPage"
-        :page-sizes="[1, 2, 3]" :page-size="1" layout="total, sizes, prev, pager, next, jumper" :total="tableDataInfo.count||0">
+        :page-sizes="[10, 20, 30]" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="tableDataInfo.count||0">
     </el-pagination>
 </template>
 
@@ -15,7 +15,7 @@
             return {
                 pageInfo:{
                     currentPage: 1,
-                    pageSize:1,
+                    pageSize:10,
                 }
                
             };
@@ -25,10 +25,14 @@
             
         },
         mounted() {
-            this.$emit('getTableData',this.pageInfo)
+            //重新获取数据渲染调用  this.$refs['name']reload()
+            this.reload()
         },
 
         methods: {
+            reload(){
+                this.$emit('getTableData',this.pageInfo)
+            },
             handleSizeChange(val) {
                 this.pageInfo.pageSize=val
                 this.$emit('getTableData',this.pageInfo)
