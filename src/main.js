@@ -8,6 +8,7 @@ import { ElMessage } from 'element-plus'
 import 'dayjs/locale/zh-cn' //中文
 import locale from 'element-plus/lib/locale/lang/zh-cn' //中文
 import 'element-plus/dist/index.css'
+import './permission.js'
 //引入table全局组件
 import tableContainer from '@/components/tableComponents/index'
 const app = createApp(App)
