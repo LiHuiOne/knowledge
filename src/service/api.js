@@ -1,14 +1,13 @@
 import axios from "axios"; // 注意先安装
 import config from "./config.js"; // 倒入默认配置
 import {
-    Message
+    ElMessage
 } from "element-plus";
 import {
     isString
 } from "util";
 //配置请求和响应拦截器(axios的二次封装)
 export default function $axios(options) {
-    console.log(options)
     return new Promise((resolve, reject) => {
         const instance = axios.create({
             baseURL: config.baseURL,
@@ -16,10 +15,15 @@ export default function $axios(options) {
         });
         // request 拦截器
         instance.interceptors.request.use(config => {
+                if(localStorage.getItem('token')){
+                    //请求头添加token,   
+                    //Bearer: node服务器检验token过期需要请求头加入Bearer和空格+token
+                    config.headers['Authorization']='Bearer'+" "+localStorage.getItem('token')
+                }
                 return config;
             },
             err => {
-                Message.error({
+                ElMessage.error({
                     message: "请求超时!"
                 });
                 return Promise.resolve(err);
@@ -36,7 +40,7 @@ export default function $axios(options) {
                     data = response.data;
                 }
                 if (!isString(data) && data.success !== undefined && !data.success) {
-                    Message.error({
+                    ElMessage.error({
                         message: data.i18nMessage
                     });
                 }
@@ -49,11 +53,9 @@ export default function $axios(options) {
                             err.message = "请求错误";
                             break;
                         case 401:
-                            err.message = "您无权访问此接口";
+                            err.message = "token过期，请重新登录";
                             //  可以在此移除本地缓存
-                            //   Cookies.remove("admin-token");
-                            //   Cookies.remove("admin-uuid");
-                            window.location.reload();
+                            localStorage.removeItem('token')
                             break;
                         case 403:
                             err.message = "拒绝访问";
@@ -95,9 +97,11 @@ export default function $axios(options) {
                     }
                 }
                 if (err.response.status !== 401) {
-                    Message.error({
+                    ElMessage.error({
                         message: err.message
                     });
+                }else{
+                    window.location.reload();
                 }
                 return Promise.reject(err); // 返回接口返回的错误信息
             }

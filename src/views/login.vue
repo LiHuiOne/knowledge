@@ -44,6 +44,7 @@
                     if(vaild){
                         this.$api.login(this.loginForm).then(res=>{
                             if(res.status=='ok'){
+                                localStorage.setItem('token',res.token)
                                 this.$router.push('/home')
                             }
                         })
