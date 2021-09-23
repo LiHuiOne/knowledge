@@ -1,6 +1,6 @@
 <template>
     <el-table :data="tableDataInfo.data||[]">
-        <el-table-column v-for="col in columnList" :label="col.label" :prop="col.prop" :key="col.prop"></el-table-column>
+        <el-table-column v-for="col in columnList" :label="col.label" :prop="col.prop" :key="col.prop" show-overflow-tooltip></el-table-column>
         <slot></slot>
     </el-table>
     <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="pageInfo.currentPage"
