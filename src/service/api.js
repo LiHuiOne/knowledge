@@ -3,9 +3,6 @@ import config from "./config.js"; // 倒入默认配置
 import {
     ElMessage
 } from "element-plus";
-import {
-    isString
-} from "util";
 //配置请求和响应拦截器(axios的二次封装)
 export default function $axios(options) {
     return new Promise((resolve, reject) => {
@@ -38,11 +35,6 @@ export default function $axios(options) {
                     data = response.request.responseText;
                 } else {
                     data = response.data;
-                }
-                if (!isString(data) && data.success !== undefined && !data.success) {
-                    ElMessage.error({
-                        message: data.i18nMessage
-                    });
                 }
                 return data;
             },
