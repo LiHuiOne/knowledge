@@ -1,10 +1,11 @@
 <template>
     <div class="box_container">
+        <searchContainer ref="search" :searchData="searchData" @search="getTableData"></searchContainer>
         <div class="box_header">
             <span>柱状图</span>
             <el-button type="primary" size="small" @click="add('0','')">新增</el-button>
         </div>
-        <tableContainer ref="echartTable" :tableDataInfo="tableDataInfo" :columnList="tableColumn" @getTableData="getTableData">
+        <tableContainer ref="echartTable" :tableDataInfo="tableDataInfo" :columnList="tableColumnList" @getTableData="getTableData">
              <el-table-column prop="type" label="类型">
                 <template #default="{row}">
                     <span>{{echartTypeObj[row.type]||'--'}}</span>
@@ -35,7 +36,10 @@
     import {
         dialogTitleObj
     } from '@/until/dictionary.js'
+    import searchInfo from './mixins/search.js'
+    import tableColumn from './mixins/table.js'
     export default {
+        mixins:[searchInfo,tableColumn],
         data() {
             return {
                 echartTypeObj,
@@ -43,17 +47,6 @@
                 dialogVisible: false,
                 tableDataInfo: {},
                 form: {},
-                tableColumn:[
-                    {
-                        label:'名称',
-                        prop:'name'
-                    },
-                    {
-                        label:'描述',
-                        prop:'description'
-                    }
-
-                ],
                 diaTitle:'',
                 isShow:false,
                 isShowEchartDia:false,
@@ -67,13 +60,9 @@
             ecahrtsDialogContainer:defineAsyncComponent(()=>import('@/components/dialogComponents/echarts.vue'))
         },
 
-        mounted() {
-            
-        },
-
         methods: {
-            getTableData(pageInfo){
-                this.$api.getEcharts(pageInfo).then(res=>{
+            getTableData(pageInfo={},searchInfo={}){
+                this.$api.getEcharts({...pageInfo,...searchInfo}).then(res=>{
                     if(res.status=='ok'){
                         this.tableDataInfo=res
                     }

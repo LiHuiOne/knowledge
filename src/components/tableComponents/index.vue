@@ -25,7 +25,7 @@
             
         },
         mounted() {
-            //重新获取数据渲染调用  this.$refs['name']reload()
+            //重新获取数据渲染调用  this.$refs['name'].reload()
             this.reload()
         },
 
