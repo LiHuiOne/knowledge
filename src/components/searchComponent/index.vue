@@ -52,7 +52,7 @@
 
         methods: {
             search(){
-                this.$emit('search',{currentPage:1,pageSize:10},this.getData())
+                this.$emit('search',{currentPage:1,pageSize:10})
             },
             reset(){
                 this.searchForm={}

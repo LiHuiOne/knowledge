@@ -61,8 +61,9 @@
         },
 
         methods: {
-            getTableData(pageInfo={},searchInfo={}){
-                this.$api.getEcharts({...pageInfo,...searchInfo}).then(res=>{
+            getTableData(pageInfo={}){
+                const info = this.$refs['search'].getData()||{}
+                this.$api.getEcharts({...pageInfo,...info}).then(res=>{
                     if(res.status=='ok'){
                         this.tableDataInfo=res
                     }
