@@ -14,6 +14,13 @@
                 <MenuContainer></MenuContainer>
             </div>
             <div class="content_warpper">
+                <div class="breadContainer">
+                    <el-breadcrumb separator-class="el-icon-arrow-right">
+                        <el-breadcrumb-item v-for="(breadItem,index) in breadList" :key="index" :to="breadItem.path">
+                            {{breadItem.title}}
+                        </el-breadcrumb-item>
+                    </el-breadcrumb>
+                </div>
                 <router-view></router-view>
             </div>
         </div>
@@ -28,7 +35,8 @@ import {mapState,mapMutations} from 'vuex'
         name: 'index',
         data() {
             return {
-                imgSrc:require('@/assets/logo/logo.png')
+                imgSrc:require('@/assets/logo/logo.png'),
+                breadList:[]
             };
         },
         computed:{
@@ -40,10 +48,16 @@ import {mapState,mapMutations} from 'vuex'
         components: {
             MenuContainer:defineAsyncComponent(()=>import('@/components/menu/index.vue'))
         },
-
-        mounted() {
+        watch:{
+            $route(val){
+                console.log(val)
+                this.breadList=val.meta.breadcrumbFun?val.meta.breadcrumbFun(val):[]
+            }
         },
-
+        mounted(){
+            //解决页面刷新meta获取不到问题
+            this.breadList=this.$route.meta.breadcrumbFun(this.$route)
+        },
         methods: {
             ...mapMutations(['toogleCollapse']),
             tooggleCollapse(){
@@ -98,7 +112,16 @@ import {mapState,mapMutations} from 'vuex'
         .content_warpper{
             width: 100%;
             box-sizing: border-box;
-            padding:10px 10px;
+            padding:0px 10px 10px;
+            .breadContainer{
+                margin:0px 0px 10px 0px;
+                height: 40px;
+                background: #ffffff;
+                .el-breadcrumb{
+                    height: 100%;
+                    line-height: 40px;
+                }
+            }
         }
     }
 }

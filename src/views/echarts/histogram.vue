@@ -19,7 +19,8 @@
             <el-table-column label="操作">
                 <template #default="{row}">
                     <span class="opation_txt mr5" @click="add('2',row)">修改</span>
-                    <span class="opation_txt" @click="del(row)">删除</span>
+                    <span class="opation_txt mr5" @click="del(row)">删除</span>
+                    <span class="opation_txt" @click="show(row)">详情</span>
                 </template>
             </el-table-column>
         </tableContainer>
@@ -61,6 +62,9 @@
         },
 
         methods: {
+            show(){
+                this.$router.push({path:'/echarts/detail',query:{type:'1'}})
+            },
             getTableData(pageInfo={}){
                 const info = this.$refs['search'].getData()||{}
                 this.$api.getEcharts({...pageInfo,...info}).then(res=>{
