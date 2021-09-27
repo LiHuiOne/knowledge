@@ -19,7 +19,7 @@ export const routerConstantList=[
                 component:()=>import(/* webpackChunkName: "echarts" */ '@/views/echarts/histogram'),
                 meta:{
                     breadcrumbFun(route){
-                        return [{title:'echarts'},{title:'柱状图'}]
+                        return [{title:'Echarts'},{title:'柱状图'}]
                     }
                 }
             },
@@ -30,7 +30,7 @@ export const routerConstantList=[
                 meta:{
                     breadcrumbFun(route){
                         let titleType=route.query.type=='0'?'新增':'详情'
-                        return [{title:'echarts',path:''},{title:'柱状图',path:'/echarts/histogram'},{title:titleType,path:''},]
+                        return [{title:'Echarts',path:''},{title:'柱状图',path:'/echarts/histogram'},{title:titleType,path:''},]
                     }
                     
                 }
@@ -41,12 +41,12 @@ export const routerConstantList=[
                 component:()=>import(/* webpackChunkName: "echarts" */ '@/views/echarts/pie'),
                 meta:{
                     breadcrumbFun(route){
-                        return [{title:'echarts'},{title:'饼状图'}]
+                        return [{title:'Echarts'},{title:'饼状图'}]
                     }
                 }
             },
             {
-                path:'/echarts/gaodeMap',
+                path:'/map/gaodeMap',
                 name:'高德地图',
                 component:()=>import(/* webpackChunkName: "map" */ '@/views/map/gaodeMap.vue'),
                 meta:{

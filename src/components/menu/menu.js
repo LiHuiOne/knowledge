@@ -29,7 +29,7 @@ export const menuList=[
                 icon:'icon iconfont icon-ditu_dingwei_o',
                 title:'高德地图',
                 name:'gaodeMap',
-                path:'/echarts/gaodeMap'
+                path:'/map/gaodeMap'
             }
         ]
     }

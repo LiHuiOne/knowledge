@@ -55,8 +55,9 @@ import {mapState,mapMutations} from 'vuex'
             }
         },
         mounted(){
+            console.log(this.$route)
             //解决页面刷新meta获取不到问题
-            this.breadList=this.$route.meta.breadcrumbFun(this.$route)
+            this.breadList=this.$route.meta.breadcrumbFun?this.$route.meta.breadcrumbFun(this.$route):[]
         },
         methods: {
             ...mapMutations(['toogleCollapse']),
