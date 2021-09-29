@@ -17,8 +17,24 @@
                 <el-form-item prop="code" label="代码片段">
                     <el-input type="textarea" :autosize="{ minRows: 4, maxRows:8 }" v-model="form.code" placeholder="请输入代码片段"></el-input>
                 </el-form-item>
-                <el-form-item prop="imageSrc" label="图片预览">
-                    <el-input v-model="form.imageSrc" placeholder="请输入"></el-input>
+                <el-form-item prop="imageSrc" label="图片上传">
+                    <el-upload
+                        ref="uploadImg"
+                        action=""
+                        accept=".jpg,.jpeg,.png,.JPG,.JPEG"
+                        :before-upload="beforeUpload"
+                        :on-change="fileChange"
+                        :limit="1"
+                        :show-file-list="false"
+                    >
+                        <i class="el-icon-upload el_upload_icon"></i>
+                        <template #tip>
+                        <div class="el-upload__tip">
+                           支持PNG、JPG、JPEG(不超过200kb)
+                        </div>
+                        </template>
+                    </el-upload>
+                    <img class="uploadImgs" v-if="form.imageSrc" :src="form.imageSrc" alt="" />
                 </el-form-item>
             </el-form>
             <template #footer>
@@ -38,6 +54,7 @@
     import {
         dialogTitleObj
     } from '@/until/dictionary.js'
+    import {transformToBase64} from '@/until/untilTool.js'
 export default {
     props: ['isShow','type','codeInfo'],
   data () {
@@ -46,7 +63,9 @@ export default {
         dialogTitleObj,
         diaTitle:'',
         dialogVisible:false,
-        form:{}
+        form:{
+            imageSrc:''
+        }
     };
   },
 
@@ -54,6 +73,7 @@ export default {
         isShow(val){
             this.dialogVisible=val
             this.form=this.codeInfo||{}
+            console.log(this.form)
         }
     },
 
@@ -62,6 +82,20 @@ export default {
   },
 
   methods: {
+      transformToBase64,
+      beforeUpload(file){
+        if(file.size/1024>200){
+            this.$message.warning('文件大小不能超过200kb')
+            return false
+        }
+      },
+      fileChange(file,fileList){
+          console.log(file)
+          transformToBase64(file.raw).then(res=>{
+              this.form.imageSrc=res
+              this.$refs.uploadImg.clearFiles()
+          })
+      },
       colseDia(){
            this.dialogVisible=false
            this.$emit('close',false)
@@ -75,4 +109,11 @@ export default {
 
 </script>
 <style lang='less' scoped>
+.el_upload_icon{
+    font-size: 20px;
+}
+.uploadImgs{
+    width: 200px;
+    height: 100px;
+}
 </style>

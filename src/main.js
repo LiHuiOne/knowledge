@@ -9,16 +9,20 @@ import 'dayjs/locale/zh-cn' //中文
 import locale from 'element-plus/lib/locale/lang/zh-cn' //中文
 import 'element-plus/dist/index.css'
 import './permission.js'
+
 //引入table作为全局组件
 import tableContainer from '@/components/tableComponents/index'
 //引入搜索作为全局组件
 import searchContainer from '@/components/searchComponent/index'
+//引入图片预览组件作为全局组件
+import imageView from '@/components/imageView/index'
 const app = createApp(App)
 //将api方法挂载到原型上
 app.config.globalProperties.$api=api
 app.config.globalProperties.$message=ElMessage
 app.component('tableContainer',tableContainer)
 app.component('searchContainer',searchContainer)
+app.component('imageView',imageView)
 app.use(ElementPlus,{locale})
 .use(api)
 .use(store)

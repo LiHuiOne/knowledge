@@ -11,6 +11,12 @@
                     <span>{{echartTypeObj[row.type]||'--'}}</span>
                 </template>
             </el-table-column>
+            <el-table-column prop="imageSrc" label="图片预览">
+                <template #default="{row}">
+                    <imageView class="imgRow" :imgUrl="row.imageSrc"></imageView>
+                    <!-- <img class="imgRow" :src="row.imageSrc" alt="" /> -->
+                </template>
+            </el-table-column>
             <el-table-column prop="code" label="核心代码">
                 <template #default="{row}">
                     <span class="opation_txt" @click="getView(row)">查看</span>
@@ -117,4 +123,9 @@
     }
 </script>
 <style lang='less' scoped>
+.imgRow{
+    width: 40px;
+    height: 20px;
+    cursor: pointer;
+}
 </style>
