@@ -54,6 +54,16 @@ export const routerConstantList=[
                         return [{title:'地图'},{title:'高德地图'}]
                     }
                 }
+            },
+            {
+                path:'/system/menu',
+                name:'系统管理',
+                component:()=>import(/* webpackChunkName: "system" */ '@/views/system/menu.vue'),
+                meta:{
+                    breadcrumbFun(route){
+                        return [{title:'系统管理'},{title:'菜单管理'}]
+                    }
+                }
             }
         ]
     },

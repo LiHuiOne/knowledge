@@ -32,5 +32,19 @@ export const menuList=[
                 path:'/map/gaodeMap'
             }
         ]
+    },
+    {
+        icon:'icon iconfont icon-_xitongcaidan-xitong',
+        title:'系统管理',
+        name:'system',
+        path:'',
+        children:[
+            {
+                icon:'icon iconfont icon-xitong-caidanguanli',
+                title:'菜单管理',
+                name:'menu',
+                path:'/system/menu'
+            }
+        ]
     }
 ]
