@@ -1,3 +1,4 @@
+//图片转base64
 export function transformToBase64(imgFile) {
     return new Promise(function(resolve, reject) {
         let reader = new FileReader();
